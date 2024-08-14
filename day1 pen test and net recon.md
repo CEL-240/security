@@ -238,3 +238,11 @@ LINOPS		JUMP		T1		T2		T3
 * Creates proxychains on t2
 * `<TERMINAL_4>/> ssh -S /tmp/t2 dumb -O forward -L 1234:<t3_IP>:21 `
 * Creates forward to t3 on port 21
+
+
+
+TUNNELS
+ssh -MS /tmp/jump 10.50.39.224 establishes dynamic port on first box
+ssh -S /tmp/jump jump -O cancel -D 9050 cancels a tunnel
+ssh -S /tmp/jump jump -O forward -L 5544:192.168.28.120:4242 use -S to reference your MS with the file path then name and -O forward it to the others 
+
