@@ -1,4 +1,4 @@
-# CTFD - http://10.50.20.30:8000
+ # CTFD - http://10.50.20.30:8000
 ### Username
 ```
 KYGA-005-M
@@ -131,16 +131,16 @@ print ('Authors: ',authors)
 * Things to change in the script
   - URL
   - xpath query
-###### OUTPUTS:
+###### OUTPUTS:   (use python before script name to run)
 ```
 Authors:  ['Albert Einstein', 'J.K. Rowling', 'Albert Einstein', 'Jane Austen', 'Marilyn Monroe', 'Albert Einstein', u’Andr\xe9 Gide', 'Thomas A. Edison', 'Eleanor Roosevelt', 'Steve Martin']
 ```
-#### Script Management
+#### nmap Script Management
 Scripts are stored in a subdirectory of the Nmap data directory by default: `/usr/share/nmap/scripts`
 ```
-nmap --script=http-enum 192.168.28.100
+nmap --script=http-enum 192.168.28.100 (you do not need to put .nse for the script)
 ```
-* Enumerates the directories and files on a web server
+# Enumerates the directories and files on a web server
 
 
 # CTF Notes
