@@ -1,23 +1,23 @@
 # CTFD - http://10.50.20.30:8000
 ### Username
 ```
-JOHU-503-M
+KYGA-005-M
 ```
 ### jumpbox
 ```
-10.50.30.50
+10.50.39.244
 ```
 #### Password
 ```
-z3rO0sdmpFsRyRR
+CUFPIOAioPZ6eig
 ```
 ### Lin-Ops
 ```
-10.50.30.231
+10.50.26.104
 ```
 ### WIN-OPS
 ```
-10.50.38.121
+10.50.23.80
 ```
 #### XFREERDP COMMAND
 ```
@@ -27,10 +27,10 @@ xfreerdp /u:student /v:10.50.38.121 -dynamic-resolution +glyph-cache +clipboard
 ```
 password
 ```
-### Stack Number - 13
+### Stack Number - 8
 ### Multiplexing command
 ```
-ssh -MS /tmp/jump student@10.50.30.50
+ssh -MS /tmp/jump student@10.50.39.224
 ```
 * Multiplexing allows us to connect to multiple hosts using the same ssh
 * Stays persistent until connection closes
@@ -43,10 +43,19 @@ ssh -S /tmp/jump dummy -O forward -D9050
 ```
 for i in {1..254}; do (ping -c 1 192.168.28.$i | grep "bytes from" &) ; done
 ```
+## socket tunnel
+ssh -S /tmp/jump jump -O forward -L 1111:192.168.28.100:2222 -L 33333:192.168.28.100:80
+
+## getting onto web server
+http://127.0.0.1:33333   (uses the port you connected via tunnel to port 80 on firefox)
+
+## ssh through a tunnel/ sets up next hop
+ssh -MS /tmp/t1 creds@127.0.0.1 -p 1111 (uses the port you connected via tunnel to ssh a machin e outside scope)
+USE MS FOR NEW TUNNELS 
 
 ### Cancel a socket
 ```
-ssh -S /tmp/jump dummy -O cancel <PORT>:<IP>:<PORT>
+ssh -S /tmp/jump dummy -O cancel 1111:192.168.28.100:2222 (cancles that tunnel)
 ```
 ### Example Commands
 ```
