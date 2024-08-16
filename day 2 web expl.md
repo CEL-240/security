@@ -159,7 +159,7 @@ from the web server
 then you can ssh after the echo cmmands usinf "authorized_keys"
 10.100.28.55
 
-
+../../../../../etc/passwd
 
 
 
