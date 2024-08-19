@@ -37,16 +37,16 @@
 ```
 main:
    mov rax, 16     # Moving into rax the value of 16
-   push rax        # Pushing the valie in rax (16) onto the stack. RSP is pushed up by 8 bytes
+   push rax        # Pushing the value in rax (16) onto the stack. RSP is pushed up by 8 bytes (64 bits)
    jmp mem2        # Jump to mem2 function
    
 mem1:
-   mov rax, 0      # Moving into rax the value of 0
+   mov rax, 0      # Moving into rax the value of 0 (error free)
    ret             # Return
    
 mem2:
   pop r8           # Popping value (16) off of stack and storing in r8. RSP falls by 8 bytes
-  cmp rax, r8      # Comparing to rax value (16) the value of r8 (16)
+  cmp rax, r8      # Comparing the rax value (16) the value of r8 (16) they are equal to each pther, the zero flag is set
   je mem1          # Previous comparison ends with zero flag set; jump to mem1; "je" - jump if equal
 
 ```
@@ -58,12 +58,13 @@ main:
   jmp mem1         # Jump to mem1
 
 mem1:
-  sub rbx, 40      # Subtract from the value in rbx  (62) 40. Reslult is rbx=22
-  mov rs1, rbx     # Moving into rsi the value of (22)
-  cmp rcx, rsi     # Compare to rcx (25) the value of rsi (22). 
+  sub rbx, 40      # Subtract from the value in rbx  (62) 40. Result is rbx=22
+  mov rsi, rbx     # Moving into rsi the value of (22)
+  cmp rcx, rsi     # Compare to rcx (25) the value of rsi (22). sign flag is set, overflow flag is not set
+                        >if rsi is greater than rcx it crashes 
   jmple mem2       # Zero flag is not set. RSI < RCX. Jump to mem2; "jmple" - jump if less than or equal to
 
 mem2:
-  mov rax, 0       # Moving into rax the value of 0
-  ret              # Return
+  mov rax, 0       # Moving into rax the value of 0 (error free)
+  ret              # Return value in the first return register
 ```
