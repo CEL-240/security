@@ -69,3 +69,12 @@ mem2:
   ret              # Return value in the first return register
 ```
 
+.\downloads\SYSINTERNALS\strings.exe .\downloads\demo1_new.exe  (uses sysinternals suite against exe file) | select -first 1 (see some info)
+
+## analysis method
+```
+1. run strings against the malware and analyze the garbage 
+2. import file to ghidra then double click, say yes to analyze it
+3. search string "enter key"
+4. double click function on the right
+5. go to success and work backwards
