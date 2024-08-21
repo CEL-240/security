@@ -76,5 +76,5 @@ mem2:
 1. run strings against the malware and analyze the garbage 
 2. import file to ghidra then double click, say yes to analyze it
 3. search string "enter key"
-4. double click function on the right
+4. double click functions on the right for analysis and understand whats happening
 5. go to success and work backwards
