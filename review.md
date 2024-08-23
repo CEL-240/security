@@ -35,3 +35,28 @@
 * DLL Replacement
 * Auditpol
 #### Lin Exp
+
+
+
+
+
+
+
+
+
+
+
+## steps 
+to exploit a webpage: 
+  nmap --script=http-enum
+  after nmap you type in the directorie found at the search bar
+  then you replace the ssh keys with your own so you dont need a password to get on the box and make sure to create the authorized_keys 
+  directory 
+
+
+
+
+
+
+
+  
