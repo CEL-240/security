@@ -178,7 +178,7 @@ find / -type d -perm /2 -ls 2>/dev/null # finds directories with the write permi
 ls -lisa /tmp      ls -latr puts the most recently written to file at the bottom 
 
 # dot . in path
-PATH=./:$PATH  
+PATH=./:$PATH  makes the directory youre in a directory the system reads for commands, for example ls in that directory can be mkdir and can run a new set of commands when called in nthat directory
 echo $PATH
 
 wayss to figure out init type 
