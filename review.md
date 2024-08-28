@@ -150,6 +150,14 @@ scp -P 2323 creds@127.0.0.1:/remote/file.txt .    #grabs a file from a remote sy
 * On your box:
   - `chmod 600 /home/student/stolenkey` # place stolen key
   - `ssh -i /home/student/stolenkey jane@1.2.3.4`   # use the key stored in home then regular ssh syntax
- 
+cat /etc/hosts
+check /var/log/syslog
+cat /etc/crontab
+cat /etc/passwd and /shadow
+enumerate user directories, check root, and any profile in home that can login as seen from  passwd
 
 ## privilege escalation 
+for linux:
+  sudo cat /etc/sudoers
+cat /etc/rsyslog.conf  
+cd to /etc/rsyslog.d then ls for newer references
